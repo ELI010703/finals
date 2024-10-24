@@ -1,0 +1,75 @@
+{% block content %} 
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index' %}">ERP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile-update' %}">Profileupdate</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="{% url 'order_list' %}">View Orders</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Another action</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      
+          <button class="btn btn-outline-danger" type="submit"> <a class="nav-link" href={% url 'logout' %}>Logout</a></button>
+       
+      </div>
+    </div>
+  </nav>
+
+<div class="container my-4"> <!-- Add a container to wrap the entire content -->
+    <div class="row justify-content-center"> <!-- Center the row using Bootstrap's flex utilities -->
+        <div class="col-md-8">
+            <table class="table bg-white text-center"> <!-- Add text-center for centering table content -->
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Ordered by</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.name.name }}</td> <!-- Access the product name via the foreign key -->
+                        <td>{{ order.name.category }}</td> <!-- Access the product category -->
+                        <td>{{ order.order_quantity }}</td> <!-- Correct quantity field from Order model -->
+                        <td>{{ order.customer.username }}</td> <!-- Customer information -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %} 
